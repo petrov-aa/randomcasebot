@@ -43,10 +43,10 @@ def on_inline(inline_query):
   if len(inline_query.query) < 1:
     return
   answers = list()
-  for i in range(10):
+  for i in range(1):
     styled_text = random_style_text(inline_query.query)
     ans_id = hashlib.md5(styled_text.encode("utf-8")).hexdigest()
-    answers.append(types.InlineQueryResultArticle(ans_id, styled_text, types.InputTextMessageContent(styled_text, parse_mode="HTML")))
+    answers.append(types.InlineQueryResultArticle(ans_id, "Отправить", types.InputTextMessageContent(styled_text, parse_mode="HTML")))
   bot.answer_inline_query(inline_query.id, answers)
 
 bot.remove_webhook()
