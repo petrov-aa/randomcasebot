@@ -40,14 +40,17 @@ def on_text(message):
 
 @bot.inline_handler(lambda query: True)
 def on_inline(inline_query):
-  if len(inline_query.query) < 1:
-    return
-  answers = list()
-  for i in range(1):
-    styled_text = random_style_text(inline_query.query)
-    ans_id = hashlib.md5(styled_text.encode("utf-8")).hexdigest()
-    answers.append(types.InlineQueryResultArticle(ans_id, "Отправить", types.InputTextMessageContent(styled_text, parse_mode="HTML")))
-  bot.answer_inline_query(inline_query.id, answers)
+  try:
+    if len(inline_query.query) < 1:
+      return
+    answers = list()
+    for i in range(1):
+      styled_text = random_style_text(inline_query.query)
+      ans_id = hashlib.md5(styled_text.encode("utf-8")).hexdigest()
+      answers.append(types.InlineQueryResultArticle(ans_id, "Отправить", types.InputTextMessageContent(styled_text, parse_mode="HTML")))
+    bot.answer_inline_query(inline_query.id, answers)
+  except:
+    pass
 
 bot.remove_webhook()
 bot.polling(none_stop=True, interval=0, timeout=9999)
